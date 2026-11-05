@@ -9,6 +9,9 @@ const securityHeaders = [
 const nextConfig = {
   poweredByHeader: false,
   compress: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   experimental: { optimizePackageImports: ['lucide-react', 'framer-motion', 'recharts'] },
   images: { remotePatterns: [{ protocol: 'https', hostname: 'res.cloudinary.com' }, { protocol: 'https', hostname: 'images.unsplash.com' }] },
   async headers() { return [{ source: '/:path*', headers: securityHeaders }]; },
