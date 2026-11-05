@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-background font-sans text-body antialiased;
+    /* Soft blush and gold light in the corners of the page */
+    background-image:
+      radial-gradient(900px 520px at 6% -4%, rgba(185, 130, 130, 0.10), transparent 62%),
+      radial-gradient(820px 520px at 100% 0%, rgba(185, 154, 107, 0.13), transparent 62%);
+    background-repeat: no-repeat;
+  }
+  h1, h2, h3, h4 { @apply font-serif text-primary; font-weight: 400; letter-spacing: -0.02em; line-height: 1.08; }
+  /* Instrument Serif has one weight (400), so never ask for a bolder one: the browser would fake it */
+  .font-serif, .font-serif.font-semibold, .font-serif.font-bold, .font-serif.font-medium { font-weight: 400; }
+  body { font-weight: 450; letter-spacing: -0.003em; }
+  ::selection { background: rgba(185, 154, 107, 0.35); color: #2A211D; }
+  :focus-visible { @apply outline-2 outline-offset-2 outline-accent; outline-style: solid; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #F8F5F0; }
+  ::-webkit-scrollbar-thumb { background: #B99A6B; border-radius: 99px; border: 2px solid #F8F5F0; }
+}
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8; }
+  .label-sm { @apply text-[11px] font-semibold uppercase tracking-[0.22em]; }
+  .nav-link { @apply relative text-sm font-medium text-primary; }
+  .nav-link::after { content: ''; @apply absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-300; }
+  .nav-link:hover::after, .nav-link[data-active='true']::after { @apply scale-x-100; }
+  .skeleton { @apply relative overflow-hidden bg-secondary; }
+  .skeleton::after { content: ''; @apply absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/60 to-transparent; animation: shimmer 1.4s infinite; }
+
+  /* ---- 3D and depth helpers ---- */
+  .perspective { perspective: 1200px; }
+  .preserve-3d { transform-style: preserve-3d; }
+  /* A card that rises on hover with a deeper shadow */
+  .card-3d { @apply rounded-2xl bg-white shadow-soft transition-all duration-500 ease-out; }
+  .card-3d:hover { @apply -translate-y-1.5 shadow-lift; }
+  /* Frosted glass panel */
+  .glass { @apply border border-white/60 bg-white/60 shadow-3d backdrop-blur-xl; }
+  .glass-dark { @apply border border-white/10 bg-primary/60 text-white shadow-3d backdrop-blur-xl; }
+  /* Gold gradient text */
+  .text-gold { background: linear-gradient(120deg, #B99A6B 0%, #E3CFA6 45%, #B99A6B 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  /* A band of light that sweeps across on hover */
+  .sheen { @apply relative overflow-hidden; }
+  .sheen::after { content: ''; @apply pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-white/30 opacity-0; transform: translateX(-150%) skewX(-20deg); }
+  .sheen:hover::after { opacity: 1; animation: sheen 0.9s ease-out; }
+  /* Arch (door) shape for images */
+  .arch { border-radius: 999px 999px 1.5rem 1.5rem; }
+  /* Outlined display text (used for big kinetic words) */
+  .text-outline { -webkit-text-stroke: 1px rgba(42, 33, 29, 0.35); color: transparent; }
+  .text-outline-light { -webkit-text-stroke: 1px rgba(237, 227, 216, 0.35); color: transparent; }
+  /* Slowly moving gold gradient across text */
+  .text-gold-flow { background: linear-gradient(110deg, #B99A6B, #E3CFA6, #B98282, #B99A6B); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: gradient-pan 8s ease-in-out infinite; }
+  .gold-hairline { @apply h-px w-full; background: linear-gradient(90deg, transparent, #B99A6B, transparent); }
+}
+
+@keyframes sheen { from { transform: translateX(-150%) skewX(-20deg); } to { transform: translateX(450%) skewX(-20deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

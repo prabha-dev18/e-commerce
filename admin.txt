@@ -1,0 +1,17 @@
+Admin panel abhi bana nahi hai, wo Phase 6 me aayega. Abhi zip me `/admin` page nahi hai, isliye link kholne par 404 dikhega. Abhi sirf ye store chal sakta hai:
+
+1. `veloura-phase1-2.zip` ko unzip karo.
+2. Terminal me folder kholo: `cd veloura`
+3. `npm install`
+4. `npm run dev`
+5. Browser me `http://localhost:3000` kholo.
+
+Admin banne ke baad ye steps honge:
+
+1. `.env` me `MONGODB_URI`, `NEXTAUTH_SECRET` aur `NEXTAUTH_URL` daalo.
+2. `npm run seed` chalao (isse sample products aur admin user ban jayega).
+3. `npm run dev` chalao.
+4. Login page par seed wale admin email aur password se login karo.
+5. `http://localhost:3000/admin` kholo.
+
+Pehle Phase 3 aur 4 (shop, API, auth) banane padenge, uske baad Phase 6 me admin. "continue" bolo to Phase 3 shuru karta hoon.
