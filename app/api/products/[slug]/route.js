@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { route, ok, ApiError } from '@/lib/api';
 import Product from '@/models/Product';
 

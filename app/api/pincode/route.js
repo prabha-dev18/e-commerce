@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { route, ok } from '@/lib/api';
 
 // Replace the rule below with a courier serviceability API (Shiprocket, Delhivery) when you have one.

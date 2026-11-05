@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { route, ok } from '@/lib/api';
 import { newsletterSchema } from '@/lib/validations';
 import Newsletter from '@/models/Newsletter';

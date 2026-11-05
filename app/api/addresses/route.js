@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { route, ok, ApiError, clean } from '@/lib/api';
 import { addressSchema } from '@/lib/validations';
 import Address from '@/models/Address';

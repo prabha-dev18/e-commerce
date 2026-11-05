@@ -9,6 +9,7 @@ const securityHeaders = [
 const nextConfig = {
   poweredByHeader: false,
   compress: true,
+  staticPageGenerationTimeout: 180,
   eslint: {
     ignoreDuringBuilds: true,
   },

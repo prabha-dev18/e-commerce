@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { crud } from '@/lib/crud';
 import { pageSchema } from '@/lib/adminSchemas';
 import Page from '@/models/Page';

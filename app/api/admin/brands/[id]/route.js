@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { crud } from '@/lib/crud';
 import { brandSchema } from '@/lib/adminSchemas';
 import Brand from '@/models/Brand';

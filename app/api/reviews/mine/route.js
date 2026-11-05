@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { route, ok } from '@/lib/api';
 import Review from '@/models/Review';
 import Product from '@/models/Product';

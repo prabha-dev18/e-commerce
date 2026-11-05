@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import mongoose from 'mongoose';
 import { z } from 'zod';
 import { route, ok, ApiError } from '@/lib/api';

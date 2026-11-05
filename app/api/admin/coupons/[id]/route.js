@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { crud } from '@/lib/crud';
 import { couponSchema } from '@/lib/adminSchemas';
 import Coupon from '@/models/Coupon';

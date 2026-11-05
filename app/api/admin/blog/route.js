@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { crud } from '@/lib/crud';
 import { blogSchema } from '@/lib/adminSchemas';
 import BlogPost from '@/models/BlogPost';

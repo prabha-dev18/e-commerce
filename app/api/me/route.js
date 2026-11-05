@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { route, ok, clean, ApiError } from '@/lib/api';
 import { profileSchema } from '@/lib/validations';
 import User from '@/models/User';

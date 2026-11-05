@@ -1,5 +1,6 @@
+'use client';
 import ResourceManager from '@/components/admin/ResourceManager';
-export const metadata = { title: 'Brands' };
+
 export default function Page() {
   return <ResourceManager title="Brands" endpoint="/api/admin/brands"
     columns={[{ label: 'Name', key: 'name' }, { label: 'Slug', key: 'slug' }, { label: 'Active', render: (r) => (r.active ? 'Yes' : 'No') }]}

@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { route, ok, ApiError } from '@/lib/api';
 import { trackSchema } from '@/lib/validations';
 import Order from '@/models/Order';

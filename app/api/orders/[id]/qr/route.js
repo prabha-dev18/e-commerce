@@ -1,8 +1,9 @@
+export const dynamic = 'force-dynamic';
 import mongoose from 'mongoose';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { route, ok, ApiError } from '@/lib/api';
-import { createUpiQr, findQrPayment, closeUpiQr, razorpayReady, directUpiReady } from '@/lib/razorpay';
+import { createUpiQr, findQrPayment, closeUpiQr, razorpayReady, directUpiReady, getDirectUpiVpa, getDirectUpiName } from '@/lib/razorpay';
 import { markPaid } from '@/lib/orders';
 import { invoiceToken, validInvoiceToken } from '@/lib/invoiceToken';
 import Order from '@/models/Order';
@@ -46,10 +47,7 @@ export const POST = route(async ({ req, params }) => {
     }
     return ok({ mode: 'razorpay', imageUrl: o.payment.qrImage, expiresAt: o.payment.qrExpiresAt, amount: o.total, ...state(o) });
   }
-  if (directUpiReady()) {
-    const vpa = process.env.UPI_VPA, name = process.env.UPI_PAYEE_NAME || 'Lumiere';
-    const link = `upi://pay?pa=${encodeURIComponent(vpa)}&pn=${encodeURIComponent(name)}&am=${o.total.toFixed(2)}&cu=INR&tn=${encodeURIComponent(`Order ${o.number}`)}&tr=${encodeURIComponent(o.number)}`;
-    return ok({ mode: 'direct', link, vpa, payeeName: name, amount: o.total, expiresAt: new Date(Date.now() + 30 * 60_000), ...state(o) });
-  }
-  throw new ApiError('QR payment is not set up yet.', 503);
+  const vpa = getDirectUpiVpa(), name = getDirectUpiName();
+  const link = `upi://pay?pa=${encodeURIComponent(vpa)}&pn=${encodeURIComponent(name)}&am=${o.total.toFixed(2)}&cu=INR&tn=${encodeURIComponent(`Order ${o.number}`)}&tr=${encodeURIComponent(o.number)}`;
+  return ok({ mode: 'direct', link, vpa, payeeName: name, amount: o.total, expiresAt: new Date(Date.now() + 30 * 60_000), ...state(o) });
 }, { limit: [20, 60_000] });

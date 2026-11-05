@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { route, ok } from '@/lib/api';
 import { toCsv } from '@/lib/csv';
 import Newsletter from '@/models/Newsletter';

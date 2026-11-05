@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { getServerSession } from 'next-auth';
 import { route, ok, ApiError } from '@/lib/api';
 import { authOptions } from '@/lib/auth';

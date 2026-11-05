@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import bcrypt from 'bcryptjs';
 import { route, ok, ApiError } from '@/lib/api';
 import { passwordChangeSchema } from '@/lib/validations';

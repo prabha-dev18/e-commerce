@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import crypto from 'crypto';
 import { route, ok } from '@/lib/api';
 

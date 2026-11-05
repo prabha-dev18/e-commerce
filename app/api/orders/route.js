@@ -1,8 +1,9 @@
+export const dynamic = 'force-dynamic';
 import { route, ok, ApiError, clean } from '@/lib/api';
 import { orderSchema } from '@/lib/validations';
 import { priceOrder } from '@/lib/pricing';
 import { genNumber, reserveStock, restoreStock, sendOrderMail, notify } from '@/lib/orders';
-import { createRazorpayOrder, upiReady } from '@/lib/razorpay';
+import { createRazorpayOrder, upiReady, razorpayReady } from '@/lib/razorpay';
 import { invoiceToken } from '@/lib/invoiceToken';
 import Order from '@/models/Order';
 import Coupon from '@/models/Coupon';
@@ -10,7 +11,8 @@ import Address from '@/models/Address';
 import User from '@/models/User';
 
 export const GET = route(async ({ session }) => {
-  const orders = await Order.find({ user: session.user.id }).sort({ createdAt: -1 }).limit(50).lean();
+  const list = await Order.find({ user: session.user.id }).sort({ createdAt: -1 }).limit(50).lean();
+  const orders = list.map((o) => ({ ...o, t: invoiceToken(o._id) }));
   return ok({ orders });
 }, { auth: true });
 
@@ -42,9 +44,15 @@ export const POST = route(async ({ req, session }) => {
     });
     let rz = null;
     if (d.paymentMethod === 'razorpay') {
-      rz = await createRazorpayOrder({ amount: q.total, receipt: order.number });
-      order.payment.razorpayOrderId = rz.razorpayOrderId;
-      await order.save();
+      if (razorpayReady()) {
+        rz = await createRazorpayOrder({ amount: q.total, receipt: order.number });
+        order.payment.razorpayOrderId = rz.razorpayOrderId;
+        await order.save();
+      } else {
+        rz = { mock: true, razorpayOrderId: `order_mock_${order._id}`, keyId: 'rzp_test_mock', amount: Math.round(q.total * 100) };
+        order.payment.razorpayOrderId = rz.razorpayOrderId;
+        await order.save();
+      }
     }
     if (q.couponCode) await Coupon.updateOne({ code: q.couponCode }, { $inc: { usedCount: 1 } });
     if (userId && d.saveAddress && (await Address.countDocuments({ user: userId })) < 10) await Address.create({ user: userId, ...order.address.toObject(), label: 'Home' });
@@ -54,7 +62,7 @@ export const POST = route(async ({ req, session }) => {
       sendOrderMail({ ...order.toObject(), email: to }).catch(console.error);
       notify(userId, 'Order placed', `Order ${order.number} is placed. Pay on delivery.`, '/account?tab=orders');
     }
-    return ok({ id: String(order._id), t: invoiceToken(order._id), number: order.number, total: order.total, method: d.paymentMethod, razorpay: rz ? { orderId: rz.razorpayOrderId, keyId: rz.keyId, amount: rz.amount } : null }, 201);
+    return ok({ id: String(order._id), t: invoiceToken(order._id), number: order.number, total: order.total, method: d.paymentMethod, razorpay: rz ? { orderId: rz.razorpayOrderId, keyId: rz.keyId, amount: rz.amount, mock: !!rz.mock } : null }, 201);
   } catch (e) {
     await restoreStock(q.lines);
     if (order) await Order.deleteOne({ _id: order._id });

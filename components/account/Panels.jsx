@@ -102,7 +102,7 @@ export function OrdersPanel({ me }) {
                 <div className="mt-5 flex flex-wrap gap-3">
                   <Button size="sm" variant="soft" href={`/api/orders/${o._id}/invoice`} target="_blank" rel="noopener">Invoice</Button>
                   {o.payment.method === 'razorpay' && o.payment.status === 'pending' && o.status === 'placed' && <Button size="sm" onClick={() => payNow(o)}>Pay now</Button>}
-                  {o.payment.method === 'upi' && o.payment.status === 'pending' && o.status === 'placed' && <Button size="sm" onClick={() => setQrFor({ id: o._id, t: '', number: o.number, total: o.total })}>Pay with QR</Button>}
+                  {o.payment.method === 'upi' && o.payment.status === 'pending' && o.status === 'placed' && <Button size="sm" onClick={() => setQrFor({ id: o._id, t: o.t || '', number: o.number, total: o.total })}>Pay with QR</Button>}
                   {['placed', 'confirmed'].includes(o.status) && <Button size="sm" variant="outline" onClick={() => cancel(o)}>Cancel order</Button>}
                   {canReturn && <Button size="sm" variant="outline" onClick={() => setReturning(returning === o._id ? null : o._id)}>Return or refund</Button>}
                   {o.status === 'delivered' && <Button size="sm" variant="ghost" href={`/product/${o.items[0].slug}#tabs`}>Write a review</Button>}

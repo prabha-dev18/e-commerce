@@ -1,3 +1,4 @@
+'use client';
 import OrdersManager from '@/components/admin/OrdersManager';
-export const metadata = { title: 'Orders' };
+
 export default function Page() { return <OrdersManager />; }

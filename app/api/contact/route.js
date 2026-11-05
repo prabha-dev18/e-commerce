@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { route, ok, clean } from '@/lib/api';
 import { contactSchema } from '@/lib/validations';
 import ContactMessage from '@/models/ContactMessage';

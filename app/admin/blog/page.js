@@ -1,6 +1,7 @@
+'use client';
 import ResourceManager from '@/components/admin/ResourceManager';
 import { dt } from '@/components/admin/ui';
-export const metadata = { title: 'Blog' };
+
 export default function Page() {
   return <ResourceManager title="Blog posts" endpoint="/api/admin/blog"
     columns={[{ label: 'Title', key: 'title' }, { label: 'Slug', key: 'slug' }, { label: 'Date', render: (r) => dt(r.publishedAt) }, { label: 'Published', render: (r) => (r.published ? 'Yes' : 'Draft') }]}

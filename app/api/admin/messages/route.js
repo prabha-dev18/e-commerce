@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { crud } from '@/lib/crud';
 import { messageSchema } from '@/lib/adminSchemas';
 import ContactMessage from '@/models/ContactMessage';

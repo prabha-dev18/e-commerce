@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { route, ok, ApiError, clean } from '@/lib/api';
 import { reviewSchema } from '@/lib/validations';
 import Review from '@/models/Review';

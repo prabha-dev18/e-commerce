@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { revalidatePath } from 'next/cache';
 import { route, ok, ApiError, escapeRegex } from '@/lib/api';
 import { productSchema } from '@/lib/adminSchemas';

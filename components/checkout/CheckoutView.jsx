@@ -91,7 +91,7 @@ export default function CheckoutView() {
         onPaid: done,
         onDismiss: () => {
           if (authed) { toast('Payment not completed. Your order is saved: pay from My orders.'); router.push('/account?tab=orders'); }
-          else fetch('/api/payments/cancel', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ orderId: j.id, razorpayOrderId: j.razorpay.orderId }) }).then(() => toast('Payment cancelled. Your bag is still saved.')).catch(() => {});
+          else fetch('/api/payments/cancel', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ orderId: j.id, razorpayOrderId: j.razorpay?.orderId }) }).then(() => toast('Payment cancelled. Your bag is still saved.')).catch(() => {});
           setPlacing(false);
         },
       });

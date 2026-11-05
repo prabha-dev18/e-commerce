@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import mongoose from 'mongoose';
 import { route, ApiError } from '@/lib/api';
 import { validInvoiceToken } from '@/lib/invoiceToken';

@@ -1,5 +1,6 @@
+'use client';
 import ResourceManager from '@/components/admin/ResourceManager';
-export const metadata = { title: 'Banners' };
+
 export default function Page() {
   return <ResourceManager title="Hero banners" sub="These are the slides at the top of the home page, in sort order. With none active, the default slides are shown. Show or hide other home sections in Settings." endpoint="/api/admin/banners"
     columns={[{ label: 'Title', key: 'title' }, { label: 'Button', key: 'cta' }, { label: 'Link', key: 'href' }, { label: 'Order', key: 'order' }, { label: 'Active', render: (r) => (r.active ? 'Yes' : 'No') }]}

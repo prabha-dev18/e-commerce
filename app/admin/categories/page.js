@@ -1,5 +1,6 @@
+'use client';
 import ResourceManager from '@/components/admin/ResourceManager';
-export const metadata = { title: 'Categories' };
+
 export default function Page() {
   return <ResourceManager title="Categories" sub="Slugs must match the category used on products (e.g. skincare)." endpoint="/api/admin/categories"
     columns={[{ label: 'Name', key: 'name' }, { label: 'Slug', key: 'slug' }, { label: 'Order', key: 'order' }, { label: 'Active', render: (r) => (r.active ? 'Yes' : 'No') }]}

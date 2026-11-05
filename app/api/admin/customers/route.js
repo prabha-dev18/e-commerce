@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { route, ok, escapeRegex } from '@/lib/api';
 import User from '@/models/User';
 import Order from '@/models/Order';
